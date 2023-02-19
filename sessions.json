@@ -1,0 +1,46 @@
+{
+  "sessions": [
+    {
+      "id": "5520512500:5520512500",
+      "data": {
+        "recharge": {
+          "provider": "airtel",
+          "type": "data",
+          "code": "airtel_100mb_eds_7days",
+          "amount": "55",
+          "phone": "88888888888",
+          "chat_id": 5520512500
+        }
+      }
+    },
+    {
+      "id": "5846354561:5846354561",
+      "data": {
+        "__scenes": {
+          "current": "scene:recharge",
+          "state": {}
+        },
+        "recharge": {
+          "provider": "glo",
+          "type": "data",
+          "code": "glo_200mb_cg_14days",
+          "amount": "80",
+          "phone": "08157553974",
+          "chat_id": 5846354561
+        }
+      }
+    },
+    {
+      "id": "5406648968:5406648968",
+      "data": {
+        "recharge": {
+          "chat_id": 5406648968,
+          "provider": "airtel",
+          "type": "airtime",
+          "amount": "50",
+          "phone": "09027386248"
+        }
+      }
+    }
+  ]
+}
