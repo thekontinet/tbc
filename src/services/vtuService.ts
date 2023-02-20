@@ -22,7 +22,7 @@ type DataPlanItem = {
     amount: number
 }
 
-export const getAirtimePlans = async () => [50, 100, 200, 500, 1000, 1500, 5000, 10000]
+export const getAirtimePlans = async () => [500, 1000, 1500, 5000, 10000]
 
 export const getDataPlans = async ():Promise<DataPlanItem[]> => {
     const cacheKey = 'vtu_data_plans_x'

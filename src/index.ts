@@ -30,7 +30,8 @@ app.get('/', async function(req: Request<{ref:string}>, res: Response, next:any)
 
 // Using Express
 app.post("/pay/webhook", async function(req, res) {
-    //validate event
+    try{
+        //validate event
     const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(req.body)).digest('hex');
     if (hash == req.headers['x-paystack-signature']) {
         // Retrieve the request's body
@@ -65,6 +66,10 @@ app.post("/pay/webhook", async function(req, res) {
         
     }
     res.sendStatus(200);
+    }catch(error){
+        log(error)
+        res.sendStatus(400)
+    }
 });
 
 
