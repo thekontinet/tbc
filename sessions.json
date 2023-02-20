@@ -6,13 +6,10 @@
         "recharge": {
           "chat_id": 5520512500,
           "provider": "mtn",
-          "type": "airtime"
+          "type": "airtime",
+          "amount": "50"
         },
-        "referer": "scene:recharge",
-        "__scenes": {
-          "current": "scene:recharge",
-          "state": {}
-        }
+        "referer": "scene:recharge"
       }
     },
     {
