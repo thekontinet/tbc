@@ -2,6 +2,8 @@ import Paystack from "paystack";
 import config from "../config";
 
 const paymentGateway = Paystack(config.app.paystack.key);
+console.log(config.app.paystack.key);
+
 
 export const initiatePayment = async (email: string, amount: number, reference:string) => {
   const amountInKb = amount * 100;
