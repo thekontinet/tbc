@@ -46,7 +46,8 @@ app.post("/pay/webhook", async function(req, res) {
             }
 
             // process the recharge
-            const recharge = JSON.parse(order.items).at(0)
+            const itemArray = JSON.parse(order.items)
+            const recharge = itemArray[0]
             const response = await processRecharge(recharge, order.reference)
             const isSuccess = response.status === 'success'
 

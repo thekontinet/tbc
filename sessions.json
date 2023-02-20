@@ -7,7 +7,7 @@
           "chat_id": 5520512500,
           "provider": "mtn",
           "type": "airtime",
-          "amount": "50",
+          "amount": "100",
           "phone": "08145444080"
         },
         "referer": "scene:recharge"
