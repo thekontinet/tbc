@@ -43,6 +43,19 @@ class BaseModel {
         return data;
     }
 
+    async existsWith(column:string, value:string){
+        const {data, status, error} = await supabase.from(this.table)
+            .select()
+            .eq(column, value)
+            
+        if(error){
+            log(error);
+            return null
+        }
+
+        return data.length >= 1;
+    }
+
     async update(id:string, dataset: any){
         const {data, status, error} = await supabase.from(this.table)
             .update(dataset)

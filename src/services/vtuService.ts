@@ -35,7 +35,7 @@ export const getDataPlans = async ():Promise<DataPlanItem[]> => {
 
     const transformedData = data.data.map((plan: any) => {
         const title = plan.plan_summary.replace(':', '').split('|').slice(0,1).join(' ')
-        const amount = plan.regular_price + 5
+        const amount = plan.regular_price + 15
         return {
             provider: plan.network_operator,
             title: `${title} - N${amount} - ${plan.validity}`,

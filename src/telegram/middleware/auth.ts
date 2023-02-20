@@ -3,10 +3,11 @@ import userModel from "../../model/user";
 
 export const mustHaveAnAccount = async (ctx:BotContext, next:any) => {
     const telegram_id = ctx.from?.id.toString() as string;
-    const user = await userModel.findBy("telegram_id", telegram_id);
+    const userExists = await userModel.existsWith("telegram_id", telegram_id);
   
-    if (!user) {
-      ctx.reply("Sorry, you cannot use this service. Please send /register to create account.");
+    if (!userExists) {
+      ctx.reply("Sorry, you have to create an account first, to start using this service. Send /register to create an account");
+      ctx.session.referer = ctx.scene.current?.id as string
       ctx.scene.reset();
       return ctx.scene.leave();
     }

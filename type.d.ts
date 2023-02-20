@@ -24,6 +24,7 @@ export type Recharge = {
 
 export interface Session {
     recharge: Recharge,
+    referer: string
     [key:string]: any
 }
   

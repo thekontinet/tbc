@@ -37,7 +37,8 @@ registerScene.on('text', async ctx => {
 
 
     ctx.reply(`Welcome ${user.name}, Your account was created successsfully`)
-    return ctx.scene.leave()
+    await ctx.scene.leave()
+    ctx.scene.enter(ctx.session.referer)
 })
 
 export default registerScene

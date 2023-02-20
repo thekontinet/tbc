@@ -5,7 +5,7 @@ import BaseModel from "./base"
 
 class User extends BaseModel{
     table = 'users'
-
+    
     async createAccountWithEmailAndTelegram(email:string, telegram_id:string, name = ''){
         const {data:user} = await supabase
             .from(this.table)

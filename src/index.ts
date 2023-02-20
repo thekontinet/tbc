@@ -13,6 +13,7 @@ import { log } from './config/logger';
 
 const app = express()
 const bot = new Telegraf  <BotContext>(config.app.bot.key);
+const secret = config.app.paystack.secret as string;
 
 // config
 botSetup(bot)
@@ -23,22 +24,9 @@ app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 
 app.get('/', async function(req: Request<{ref:string}>, res, next){
-    try{
-        // rechargeQueue.add('rc',{orderId: 100})
-       const ref = req.query?.ref as string
-       const report = await getReport(ref)
-       log(report);
-       
-
-        res.send(JSON.stringify(report))
-    }
-    catch(err:any){
-        next(err)
-    }
+    res.send('Rolom tech app.')
 })
 
-
-const secret = config.app.paystack.secret as string;
 // Using Express
 app.post("/pay/webhook", async function(req, res) {
     //validate event
@@ -49,8 +37,6 @@ app.post("/pay/webhook", async function(req, res) {
         // Do something with event
         if(event.event === 'charge.success' && event.data.status === 'success'){
             const reference = event.data.reference
-            const amount = event.data.amount
-
             const order = await orderModel.findBy('reference', reference)
             const isValid = await orderModel.isValid(order)
 
@@ -65,7 +51,11 @@ app.post("/pay/webhook", async function(req, res) {
 
             await orderModel.update(order.id, {status: isSuccess ? 1 : 0, vtu_response:JSON.stringify(response)})
 
-            bot.telegram.sendMessage(recharge.chat_id, "Your order has been submited")
+            if(isSuccess && recharge.chat_id){
+                bot.telegram.sendMessage(recharge.chat_id, `Your order has been submited`)
+            }else if(!isSuccess && recharge.chat_id){
+                bot.telegram.sendMessage(recharge.chat_id, `Your order has been submited, but still pending for approval`)
+            }
 
 
             return res.sendStatus(200)
