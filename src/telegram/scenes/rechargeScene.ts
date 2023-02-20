@@ -59,8 +59,8 @@ rechargeScene.action(/^(MTN|AIRTEL|GLO|9MOBILE)$/, async (ctx) => {
 rechargeScene.action(/^(DATA|AIRTIME)$/, async (ctx) => {
   ctx.answerCbQuery();
   ctx.deleteMessage();
-  const type = ctx.match?.at(0) as string;
-  ctx.session.recharge.type = type.toLowerCase();
+  const type = ctx.match && ctx.match[0] as string;
+  ctx.session.recharge.type = type?.toLowerCase() as string;
 
   if (type === "AIRTIME") {
     const airtimes = await getAirtimePlans();
@@ -95,9 +95,9 @@ rechargeScene.action(/(^plan:([0-9a-zA-Z_]*)|amount:(\d+))$/, async (ctx) => {
   ctx.deleteMessage();
 
   if (ctx.session.recharge.type === "data") {
-    const code = ctx.match?.at(2) as string;
+    const code = ctx.match && ctx.match[2] as string;
     const plan = (await getDataPlans()).find(
-      (p) => p.code.toLowerCase() == code.toLowerCase()
+      (p) => p.code.toLowerCase() == code?.toLowerCase()
     );
 
     if (!plan) throw new CustomeError("Error. Command was not understood");
@@ -105,7 +105,7 @@ rechargeScene.action(/(^plan:([0-9a-zA-Z_]*)|amount:(\d+))$/, async (ctx) => {
     ctx.session.recharge.code = plan.code;
     ctx.session.recharge.amount = plan.amount.toString();
   } else {
-    ctx.session.recharge.amount = ctx.match?.at(3) as string;
+    ctx.session.recharge.amount = (ctx.match && ctx.match[3]) as string;
   }
 
   ctx.reply("Enter phone number to recharge");
@@ -143,6 +143,10 @@ rechargeScene.on("text", (ctx) => {
 rechargeScene.action(/^(Yes|No)$/, async (ctx) => {
   ctx.answerCbQuery();
   ctx.deleteMessage()
+
+  if(ctx.match && ctx.match[0] === 'No'){
+    return ctx.scene.leave()
+  }
 
   const recharge = ctx.session.recharge;
 

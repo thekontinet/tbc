@@ -4,9 +4,14 @@
       "id": "5520512500:5520512500",
       "data": {
         "recharge": {
-          "chat_id": 5520512500
+          "chat_id": 5520512500,
+          "provider": "mtn"
         },
-        "referer": "scene:recharge"
+        "referer": "scene:recharge",
+        "__scenes": {
+          "current": "scene:recharge",
+          "state": {}
+        }
       }
     },
     {
