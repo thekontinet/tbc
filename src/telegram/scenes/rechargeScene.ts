@@ -45,8 +45,8 @@ rechargeScene.action(/^(MTN|AIRTEL|GLO|9MOBILE)$/, async (ctx) => {
   ctx.answerCbQuery();
   ctx.deleteMessage();
   console.log(ctx.match);
-  const provider = ctx.match?.at(0) as string;
-  ctx.session.recharge.provider = provider.toLowerCase();
+  const provider = ctx.match && ctx.match[0] as string;
+  ctx.session.recharge.provider = provider?.toLowerCase() as string;
   ctx.reply(
     "Select recharge option",
     Markup.inlineKeyboard([
