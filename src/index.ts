@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import crypto from 'crypto'
 import { BotContext } from '../type';
 import dotenv from 'dotenv'
@@ -15,16 +15,17 @@ const app = express()
 const bot = new Telegraf  <BotContext>(config.app.bot.key);
 const secret = config.app.paystack.secret as string;
 
-// config
-botSetup(bot)
 
 // middleware
-app.use(bot.webhookCallback(config.app.bot.webhookPath as string))
+app.use(bot.webhookCallback('/' + config.app.bot.webhookPath))
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 
-app.get('/', async function(req: Request<{ref:string}>, res, next){
-    res.send('Rolom tech app.')
+// config
+botSetup(bot)
+
+app.get('/', async function(req: Request<{ref:string}>, res: Response, next:any){
+    res.send('Rolom tech app version 1.')
 })
 
 // Using Express
@@ -66,8 +67,8 @@ app.post("/pay/webhook", async function(req, res) {
 });
 
 
-app.use((err:any, res: Response) => {
-    log(err.message);
+app.use((err:any, req: Request, res:Response, next: NextFunction) => {
+    log(err);
     res.send('Something went wrong')
 })
 

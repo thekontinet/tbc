@@ -37,6 +37,7 @@ const botSetup = (bot: Telegraf<BotContext>) => {
 
 
     if(process.env.NODE_ENV == 'production'){
+        log(`${config.app.bot.webhookURL}/${config.app.bot.webhookPath}`)
         bot.telegram.setWebhook(`${config.app.bot.webhookURL}/${config.app.bot.webhookPath}`)
     }else{
         bot.launch()
