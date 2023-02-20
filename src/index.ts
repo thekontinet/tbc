@@ -72,7 +72,7 @@ app.use((err:any, res: Response) => {
 })
 
 
-
-app.listen(3000, function(){
+const PORT = process.env.PORT || 3000
+app.listen(PORT, function(){
     log('server is running');
 })
