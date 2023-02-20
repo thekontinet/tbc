@@ -18,6 +18,7 @@ const botSetup = (bot: Telegraf<BotContext>) => {
     bot.use(session.middleware())
     bot.use(stage.middleware())
 
+    bot.start(ctx => ctx.scene.enter(registerScene.id))
     bot.command('register', ctx => ctx.scene.enter(registerScene.id))
     bot.command('recharge', ctx => ctx.scene.enter(rechargeScene.id))
 
