@@ -157,6 +157,8 @@ rechargeScene.action(/^(Yes|No)$/, async (ctx) => {
   
   const order = await orderModel.createVtu(user.id, ctx.session.recharge);
 
+  if(!order) return ctx.reply('Something went wrong. Failed to create order')
+
   //generate payment for order
   const payment = await initiatePayment(
     user.email,
