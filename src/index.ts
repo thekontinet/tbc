@@ -2,13 +2,13 @@ import express, { Request, Response } from 'express'
 import crypto from 'crypto'
 import { BotContext } from '../type';
 import dotenv from 'dotenv'
-dotenv.config({ path: __dirname+'/.env' });
+dotenv.config({ path: __dirname + '/../.env' });
 
 import Telegraf from 'telegraf'
 import botSetup from './telegram/bot'
 import config from './config';
 import orderModel from './model/order';
-import { getReport, processRecharge } from './services/vtuService';
+import { processRecharge } from './services/vtuService';
 import { log } from './config/logger';
 
 const app = express()
