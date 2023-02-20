@@ -51,7 +51,7 @@ export const getDataPlans = async ():Promise<DataPlanItem[]> => {
 
 export const sendData = async (phones: string[], package_code:string, reference:string) => {
 const body = {
-        "network_operator": package_code.split('_').at(0)?.toUpperCase(),
+        "network_operator": package_code.split('_')[0]?.toUpperCase(),
         "phone": phones.join(','),
         "package_code": package_code,
         "customer_reference": reference,
